@@ -90,12 +90,25 @@ class Game {
     board.style.backgroundColor = "#f0f0f0";
 
     // ! Fix
+    if (document.getElementById("game-status")) {
+      const statusDisplay = document.getElementById("game-status");
+      statusDisplay.parentElement.removeChild(statusDisplay);
+    }
     const statusDisplay = document.createElement("div");
     statusDisplay.id = "game-status";
     statusDisplay.style.textAlign = "center";
     statusDisplay.style.marginBottom = "10px";
-    statusDisplay.textContent = `Mines: ${this._mineCount} | Flags: 0`;
+    statusDisplay.textContent = `Bütün minaların sayı: ${this._mineCount}`;
     board.parentElement.insertBefore(statusDisplay, board);
+
+    document.getElementById("restartGameAfterShowBoard").style.display =
+      "block";
+
+    document
+      .getElementById("restartGameAfterShowBoard")
+      .addEventListener("click", () => {
+        startGame();
+      });
 
     // Bütün xanaları saxlayacaq array
     this._squares = [];

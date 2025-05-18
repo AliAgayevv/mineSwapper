@@ -4,27 +4,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mine Swepper by Ali</title>
-    <link rel="stylesheet" href="./style.css">
+    <title>Minesweeper by Ali</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body id="body" style="background-color: black;">
-    <div id="selectGameDifficulty">
-        <select id="gameDifficulys">
-            <option value="easy">Asand (9x9 10 Mina)</option>
-            <option value="medium">Orta (16x16 40 Mina)</option>
-            <option value="hard">Çətin (30x16 99 Mina)</option>
-        </select>
-    </div>
-    <button id="startGame">
-        Başla
-    </button>
-    <div id="board">
+<body id="body">
+    <div class="game-header">
+
+        <h1 class="game-title">Minesweeper</h1>
+        <button id="restartGameAfterShowBoard">Yenidən başla</button>
+        <div class="controls-container">
+            <select id="gameDifficulys">
+                <option value="easy">Asand (9x9 10 Mina)</option>
+                <option value="medium">Orta (16x16 40 Mina)</option>
+                <option value="hard">Çətin (30x16 99 Mina)</option>
+            </select>
+            <div class="button-group">
+                <button id="startGame" class="game-button">Başla</button>
+                <button id="howToPlay" class="game-button">Necə oynayırlar?</button>
+            </div>
+        </div>
     </div>
 
+    <div id="board"></div>
 
-    <button style="display: none;" id="restartGameAfterShowBoard">Restart</button>
+
+    <div id="howToPlayModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 class="instructions-title">Minesweeper: Oynama Qaydası</h2>
+
+            <div class="instruction-section">
+                <h3 class="instruction-subtitle">Oyunun Məqsədi</h3>
+                <p>Heç bir minaya toxunmadan lövhəni təmizləyin. Xana içindəki hər bir rəqəm həmin kvadratın ətrafındaki
+                    8 kvadratda neçə mina olduğunu
+                    göstərir.</p>
+            </div>
+
+            <div class="instruction-section">
+                <h3 class="instruction-subtitle">İdarə Etmə</h3>
+                <ul>
+                    <h4 class="instruction-subtitle">Telefon</h4>
+                    <li><strong>Toxunuş:</strong> Kvadratı açmaq</li>
+                    <li><strong>Uzun toxunuş:</strong> Şübhəli minaya bayraq qoymaq</li>
+                </ul>
+                <ul>
+                    <h4 class="instruction-subtitle">PC</h4>
+                    <li><strong>Sol Klik:</strong> Kvadratı açmaq</li>
+                    <li><strong>Sağ Klik:</strong> Şübhəli minaya bayraq qoymaq</li>
+                </ul>
+
+            </div>
+
+            <div class="instruction-section">
+                <h3 class="instruction-subtitle">Necə Qazanmaq Olar</h3>
+                <p>Mina olmayan bütün kvadratları uğurla açın. Minaların harada yerləşdiyini müəyyən etmək üçün
+                    rəqəmlərdən ipucu kimi istifadə edin.</p>
+            </div>
+
+            <div class="instruction-section">
+                <h3 class="instruction-subtitle">Çətinlik Səviyyələri</h3>
+                <ul>
+                    <li><strong>Asan:</strong> 9x9 grid, 10 mina ilə</li>
+                    <li><strong>Orta:</strong> 16x16 grid, 40 mina ilə</li>
+                    <li><strong>Çətin:</strong> 30x16 grid, 99 mina ilə</li>
+                </ul>
+            </div>
+
+            <div class="instruction-section">
+                <h3 class="instruction-subtitle">Məsləhətlər</h3>
+                <ul>
+                    <li>Başlanğıc zamanı künclərə click edin</li>
+                    <li>Əmin deyilsinizsə, potensial minaları izləmək üçün onları bayraqla işarələyin</li>
+                </ul>
+            </div>
+        </div>
+
 </body>
 <script src="game.js"></script>
+<script src="howToPlay.js"></script>
 
 </html>
