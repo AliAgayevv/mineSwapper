@@ -454,32 +454,48 @@ class Square {
       this.addFlag(game);
     });
 
-    squareElement.addEventListener("touchstart", (event) => {
-      touchStartX = event.touches[0].clientX;
-      touchStartY = event.touches[0].clientY;
+    squareElement.addEventListener(
+      "touchstart",
+      (event) => {
+        event.preventDefault();
+        touchStartX = event.touches[0].clientX;
+        touchStartY = event.touches[0].clientY;
 
-      touchTimeout = setTimeout(() => {
-        this.addFlag(game);
-      }, 500);
-    });
+        touchTimeout = setTimeout(() => {
+          this.addFlag(game);
+        }, 500);
+      },
+      { passive: false }
+    );
 
-    squareElement.addEventListener("touchend", () => {
-      clearTimeout(touchTimeout);
-    });
-
-    squareElement.addEventListener("touchmove", (event) => {
-      const touchX = event.touches[0].clientX;
-      const touchY = event.touches[0].clientY;
-
-      const moveThreshold = 10;
-
-      if (
-        Math.abs(touchX - touchStartX) > moveThreshold ||
-        Math.abs(touchY - touchStartY) > moveThreshold
-      ) {
+    squareElement.addEventListener(
+      "touchend",
+      () => {
+        event.preventDefault();
         clearTimeout(touchTimeout);
-      }
-    });
+      },
+      { passive: false }
+    );
+
+    squareElement.addEventListener(
+      "touchmove",
+      (event) => {
+        event.preventDefault();
+
+        const touchX = event.touches[0].clientX;
+        const touchY = event.touches[0].clientY;
+
+        const moveThreshold = 10;
+
+        if (
+          Math.abs(touchX - touchStartX) > moveThreshold ||
+          Math.abs(touchY - touchStartY) > moveThreshold
+        ) {
+          clearTimeout(touchTimeout);
+        }
+      },
+      { passive: false }
+    );
 
     // Yaratdığımız xananı DOMa əlavə edirik
     document.getElementById("board").appendChild(squareElement);
