@@ -493,7 +493,7 @@ class Square {
           longPressDetected = true;
           this.addFlag(game);
         }
-      }, 500);
+      }, 300);
     });
 
     squareElement.addEventListener("touchmove", (event) => {
