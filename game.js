@@ -454,48 +454,17 @@ class Square {
       this.addFlag(game);
     });
 
-    squareElement.addEventListener(
-      "touchstart",
-      (event) => {
-        event.preventDefault();
-        touchStartX = event.touches[0].clientX;
-        touchStartY = event.touches[0].clientY;
-
-        touchTimeout = setTimeout(() => {
-          this.addFlag(game);
-        }, 500);
-      },
-      { passive: false }
-    );
-
-    squareElement.addEventListener(
-      "touchend",
-      () => {
-        event.preventDefault();
-        clearTimeout(touchTimeout);
-      },
-      { passive: false }
-    );
-
-    squareElement.addEventListener(
-      "touchmove",
-      (event) => {
-        event.preventDefault();
-
-        const touchX = event.touches[0].clientX;
-        const touchY = event.touches[0].clientY;
-
-        const moveThreshold = 10;
-
-        if (
-          Math.abs(touchX - touchStartX) > moveThreshold ||
-          Math.abs(touchY - touchStartY) > moveThreshold
-        ) {
-          clearTimeout(touchTimeout);
-        }
-      },
-      { passive: false }
-    );
+    // Right click for phone
+    squareElement.addEventListener("touchstart", (event) => {
+      event.preventDefault();
+      if (event.touches.length === 1) {
+        this.addFlag(game);
+      }
+    });
+    // Touch eventini sağ click kimi qəbul edirik, buna görə də sağ click üçün default davranışı ləğv edirik
+    squareElement.addEventListener("touchend", (event) => {
+      event.preventDefault();
+    });
 
     // Yaratdığımız xananı DOMa əlavə edirik
     document.getElementById("board").appendChild(squareElement);
