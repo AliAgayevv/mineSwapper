@@ -454,16 +454,77 @@ class Square {
       this.addFlag(game);
     });
 
-    // Right click for phone
+    let touchStartTime;
+    let isTouchMoved = false;
+    let longPressDetected = false;
+
     squareElement.addEventListener("touchstart", (event) => {
       event.preventDefault();
-      if (event.touches.length === 1) {
+
+      // Başlangıç zamanını kaydet
+      touchStartTime = new Date().getTime();
+      isTouchMoved = false;
+      longPressDetected = false;
+
+      touchTimeout = setTimeout(() => {
+        longPressDetected = true;
         this.addFlag(game);
-      }
+      }, 500);
     });
-    // Touch eventini sağ click kimi qəbul edirik, buna görə də sağ click üçün default davranışı ləğv edirik
+
+    squareElement.addEventListener("touchmove", (event) => {
+      event.preventDefault();
+      isTouchMoved = true;
+      clearTimeout(touchTimeout);
+    });
+
     squareElement.addEventListener("touchend", (event) => {
       event.preventDefault();
+      clearTimeout(touchTimeout);
+
+      const touchEndTime = new Date().getTime();
+      const touchDuration = touchEndTime - touchStartTime;
+
+      if (!longPressDetected && !isTouchMoved && touchDuration < 500) {
+        if (
+          !this._isRevealed &&
+          !this._isFlagged &&
+          game._gameState === "playing"
+        ) {
+          this._isRevealed = true;
+
+          if (this._adjacentMines === 0) {
+            this._adjacentMines = this.calculateMines(game);
+          }
+
+          if (this._isMined) {
+            squareElement.innerHTML = "💣";
+            squareElement.style.fontSize = `${TEXT_SIZE}px`;
+            Object.assign(squareElement.style, centeredSquareStyle);
+            game.revealAllMines();
+            game._gameState = "lost";
+          } else {
+            this.addNumber(game);
+            game.incrementRevealedSafeCells();
+
+            if (this._adjacentMines === 0) {
+              const neighbors = this.getNeighbors(game);
+              for (const neighbor of neighbors) {
+                if (!neighbor._isRevealed && !neighbor._isFlagged) {
+                  const neighborElement = document.querySelector(
+                    `[data-x="${neighbor._x}"][data-y="${neighbor._y}"]`
+                  );
+                  if (neighborElement) {
+                    neighborElement.click();
+                  }
+                }
+              }
+            }
+
+            game.checkWinCondition();
+          }
+        }
+      }
     });
 
     // Yaratdığımız xananı DOMa əlavə edirik
