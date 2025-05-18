@@ -454,21 +454,21 @@ class Square {
       this.addFlag(game);
     });
 
-    // Dokunma için değişkenler
+    // Telefonda uzun basma ilə bayraq qoymaq üçün
     let touchStartTime;
     let isTouchMoved = false;
     let longPressDetected = false;
-    let touchTimeout; // touchTimeout değişkenini tanımladık
+    let touchTimeout;
 
     squareElement.addEventListener("touchstart", (event) => {
       event.preventDefault();
 
-      // Başlangıç zamanını kaydet
+      // Hərəkətin başlama zamanı
       touchStartTime = new Date().getTime();
       isTouchMoved = false;
       longPressDetected = false;
 
-      // Uzun süre basılı tutulduğunda bayrağı koy
+      // Əgər istifadəçi hold click edərsə, bayrağı qoy
       touchTimeout = setTimeout(() => {
         if (!isTouchMoved) {
           longPressDetected = true;
@@ -478,20 +478,19 @@ class Square {
     });
 
     squareElement.addEventListener("touchmove", (event) => {
-      // Kullanıcı parmağını hareket ettirirse, uzun basma işlemini iptal et
+      // Əgər istifadəçi parmağını hərəkət etdirərsə, hold click ləğv edilir
       isTouchMoved = true;
       clearTimeout(touchTimeout);
     });
 
     squareElement.addEventListener("touchend", (event) => {
-      // Her durumda timeout'u temizleyelim
       clearTimeout(touchTimeout);
 
+      // Hərəkətin bitmə vaxtı
       const touchEndTime = new Date().getTime();
       const touchDuration = touchEndTime - touchStartTime;
 
-      // Eğer uzun basma algılanmadıysa ve kullanıcı parmağını hareket ettirmediyse
-      // ve dokunma süresi kısa ise, normal tıklama olarak değerlendir
+      // Əgər istifadəçi parmağını hərəkət etdirməyibsə və uzun basma baş verməyibsə, xananı aç (sol click)
       if (!longPressDetected && !isTouchMoved && touchDuration < 500) {
         if (
           !this._isRevealed &&
