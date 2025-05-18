@@ -103,6 +103,35 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  overflow: auto;
+}
+
+.difficult-mode {
+  transform-origin: center top;
+}
+
+/* Touch cihazlar üçün sürüklənmə dəstəyi */
+#board-wrapper {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  max-height: 80vh;
+  margin: 0 auto;
+}
+
+#board-wrapper {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  max-height: 80vh;
+  margin: 0 auto;
+}
+
+.difficult-mode .square {
+  width: 20px;
+  height: 20px;
+  margin: 1px;
+  font-size: 11px;
 }
 
 .square {

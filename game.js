@@ -45,6 +45,12 @@ class Game {
         ).join(", ")}`
       );
     }
+    let board = document.getElementById("board");
+    if (normalizedDifficulty === "hard") {
+      board.classList.add("difficult-mode");
+    } else {
+      board.classList.remove("difficult-mode");
+    }
 
     // Destructuring edərək enumdan sütün, sətir və mina sayını alırıq
     const { columns, rows, mineCount } =
