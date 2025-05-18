@@ -228,6 +228,7 @@ class Game {
           restartButtonAfterShowBoardClicked.style,
           centeredSquareStyle
         );
+        ``;
         restartButtonAfterShowBoardClicked.style.marginLeft = "auto";
         restartButtonAfterShowBoardClicked.style.marginRight = "auto";
         restartButtonAfterShowBoardClicked.style.marginTop = "20px";
@@ -451,6 +452,33 @@ class Square {
     squareElement.addEventListener("contextmenu", (event) => {
       event.preventDefault();
       this.addFlag(game);
+    });
+
+    squareElement.addEventListener("touchstart", (event) => {
+      touchStartX = event.touches[0].clientX;
+      touchStartY = event.touches[0].clientY;
+
+      touchTimeout = setTimeout(() => {
+        this.addFlag(game);
+      }, 500);
+    });
+
+    squareElement.addEventListener("touchend", () => {
+      clearTimeout(touchTimeout);
+    });
+
+    squareElement.addEventListener("touchmove", (event) => {
+      const touchX = event.touches[0].clientX;
+      const touchY = event.touches[0].clientY;
+
+      const moveThreshold = 10;
+
+      if (
+        Math.abs(touchX - touchStartX) > moveThreshold ||
+        Math.abs(touchY - touchStartY) > moveThreshold
+      ) {
+        clearTimeout(touchTimeout);
+      }
     });
 
     // Yaratdığımız xananı DOMa əlavə edirik
