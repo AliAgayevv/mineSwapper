@@ -454,9 +454,11 @@ class Square {
       this.addFlag(game);
     });
 
+    // Dokunma için değişkenler
     let touchStartTime;
     let isTouchMoved = false;
     let longPressDetected = false;
+    let touchTimeout; // touchTimeout değişkenini tanımladık
 
     squareElement.addEventListener("touchstart", (event) => {
       event.preventDefault();
@@ -466,25 +468,30 @@ class Square {
       isTouchMoved = false;
       longPressDetected = false;
 
+      // Uzun süre basılı tutulduğunda bayrağı koy
       touchTimeout = setTimeout(() => {
-        longPressDetected = true;
-        this.addFlag(game);
+        if (!isTouchMoved) {
+          longPressDetected = true;
+          this.addFlag(game);
+        }
       }, 500);
     });
 
     squareElement.addEventListener("touchmove", (event) => {
-      event.preventDefault();
+      // Kullanıcı parmağını hareket ettirirse, uzun basma işlemini iptal et
       isTouchMoved = true;
       clearTimeout(touchTimeout);
     });
 
     squareElement.addEventListener("touchend", (event) => {
-      event.preventDefault();
+      // Her durumda timeout'u temizleyelim
       clearTimeout(touchTimeout);
 
       const touchEndTime = new Date().getTime();
       const touchDuration = touchEndTime - touchStartTime;
 
+      // Eğer uzun basma algılanmadıysa ve kullanıcı parmağını hareket ettirmediyse
+      // ve dokunma süresi kısa ise, normal tıklama olarak değerlendir
       if (!longPressDetected && !isTouchMoved && touchDuration < 500) {
         if (
           !this._isRevealed &&
@@ -526,7 +533,6 @@ class Square {
         }
       }
     });
-
     // Yaratdığımız xananı DOMa əlavə edirik
     document.getElementById("board").appendChild(squareElement);
     return squareElement; // Referansı qaytarırıq ki, funksiya çağıranda istifadə edə bilək
