@@ -9,8 +9,11 @@
 </head>
 
 <body id="body">
-    <div class="game-header">
+    <button id="themeToggle" class="theme-button">
+        <img src="./images/lightMode.svg" alt="Light Mode" id="themeIcon" />
+    </button>
 
+    <div class="game-header">
         <h1 class="game-title">Minesweeper</h1>
         <button id="restartGameAfterShowBoard">Yenidən başla</button>
         <div class="controls-container">
@@ -29,7 +32,6 @@
     <div id="board-wrapper">
         <div id="board"></div>
     </div>
-
 
     <div id="howToPlayModal" class="modal">
         <div class="modal-content">
@@ -55,7 +57,6 @@
                     <li><strong>Sol Klik:</strong> Kvadratı açmaq</li>
                     <li><strong>Sağ Klik:</strong> Şübhəli minaya bayraq qoymaq</li>
                 </ul>
-
             </div>
 
             <div class="instruction-section">
@@ -74,22 +75,19 @@
             </div>
 
             <div class="instruction-section">
-                <div style="display: flex;  align-items: center; gap: 5px; cursor: pointer;"
-                    id="tutorialDropdownOpenText"">
-                    <h3 class=" instruction-subtitle" id="tutorialDropdownOpenText">Məsləhətlər</h3>
+                <div style="display: flex; align-items: center; gap: 5px; cursor: pointer;"
+                    id="tutorialDropdownOpenText">
+                    <h3 class="instruction-subtitle" id="tutorialDropdownOpenText">Məsləhətlər</h3>
                     <img src="./images/arrowDown.svg" alt="arrow" id="icon" />
                 </div>
 
-
                 <ul id="tutorialDropdown">
-                    <li style="display: flex;
-                    flex-direction: column;">
+                    <li style="display: flex; flex-direction: column;">
                         Əgər xananın sayı qədər mina tapılıbsa, bütün qonşular boşdur (bayrağın sağındaki 1 xanasına
                         baxın)
                         <img src="./images/mine1.jpg" />
                     </li>
-                    <li style="display: flex;
-                    flex-direction: column;">
+                    <li style="display: flex; flex-direction: column;">
                         Xananın təmas etdiyi xanaların sayı xanadaki rəqəmə bərabərdirsə, təmas etdiklərinin hamısı
                         minadır
                         <img src="./images/mine2.jpg" />
@@ -97,9 +95,11 @@
                 </ul>
             </div>
         </div>
+    </div>
 
 </body>
 <script src="game.js"></script>
 <script src="howToPlay.js"></script>
+<script src="handleTheme.js"></script>
 
 </html>

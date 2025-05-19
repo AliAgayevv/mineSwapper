@@ -9,6 +9,7 @@ body {
   margin: 0;
   padding: 20px;
   height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .game-header {
@@ -23,6 +24,7 @@ body {
   width: 100%;
   max-width: 600px;
   margin-bottom: 20px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .game-title {
@@ -33,6 +35,7 @@ body {
   font-size: 28px;
   text-transform: uppercase;
   letter-spacing: 2px;
+  transition: color 0.3s ease;
 }
 
 .controls-container {
@@ -50,7 +53,7 @@ body {
   color: white;
   font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease, color 0.3s ease;
   width: 100%;
 }
 
@@ -110,7 +113,6 @@ body {
   transform-origin: center top;
 }
 
-/* Touch cihazlar üçün sürüklənmə dəstəyi */
 #board-wrapper {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
@@ -173,7 +175,6 @@ body {
   transform: translateY(-2px);
 }
 
-/* Modal Styles */
 .modal {
   display: none;
   position: fixed;
@@ -197,6 +198,7 @@ body {
   width: 80%;
   max-width: 600px;
   position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .close-button {
@@ -221,6 +223,7 @@ body {
   border-bottom: 2px solid #3498db;
   padding-bottom: 10px;
   margin-bottom: 20px;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
 }
 
 .instruction-section {
@@ -230,6 +233,7 @@ body {
 .instruction-subtitle {
   color: #e67e22;
   margin-bottom: 8px;
+  transition: color 0.3s ease;
 }
 
 ul {
@@ -243,11 +247,13 @@ li {
 #tutorialDropdown {
   display: none;
 }
+
 #tutorialDropdownOpenText > img {
   width: 20px;
   height: 20px;
   margin-left: 5px;
 }
+
 @media (max-width: 768px) {
   .game-header {
     padding: 15px;
@@ -263,4 +269,135 @@ li {
     width: 90%;
     margin: 30% auto;
   }
+}
+
+.theme-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #3498db;
+  border: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+
+.theme-button:hover {
+  transform: scale(1.1);
+  background-color: #2980b9;
+}
+
+#themeIcon {
+  width: 24px;
+  height: 24px;
+  filter: invert(1);
+}
+
+.light-theme {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.light-theme .game-header {
+  background-color: #e0e0e0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.light-theme .game-title {
+  color: #2c3e50;
+}
+
+.light-theme #gameDifficulys {
+  background-color: #d0d0d0;
+  color: #333;
+}
+
+.light-theme #gameDifficulys:hover {
+  background-color: #c0c0c0;
+}
+
+.light-theme .square {
+  background-color: #d0d0d0;
+  color: #333;
+}
+
+.light-theme .square:hover {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.light-theme .modal-content {
+  background-color: #f0f0f0;
+  color: #333;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.light-theme .close-button {
+  color: #666;
+}
+
+.light-theme .close-button:hover {
+  color: #333;
+}
+
+.light-theme .instructions-title {
+  color: #2980b9;
+  border-bottom: 2px solid #2980b9;
+}
+
+.light-theme .instruction-subtitle {
+  color: #d35400;
+}
+
+.light-theme .theme-button {
+  background-color: #f39c12;
+}
+
+.light-theme .theme-button:hover {
+  background-color: #e67e22;
+}
+
+.light-theme #themeIcon {
+  filter: none;
+}
+
+.light-theme .modal {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.light-theme #gameOverlay {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.light-theme #gameOverMessage,
+.light-theme #winMessage {
+  background-color: #f0f0f0;
+  color: #333;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.light-theme #playAgainBtn,
+.light-theme #showBoard {
+  background-color: #3498db;
+  color: white;
+}
+
+.light-theme #playAgainBtn:hover,
+.light-theme #showBoard:hover {
+  background-color: #2980b9;
+}
+
+.light-theme #restartGameAfterShowBoard {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.light-theme #restartGameAfterShowBoard:hover {
+  background-color: #c0392b;
 }
