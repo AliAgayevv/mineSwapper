@@ -69,6 +69,7 @@ class Game {
     this._totalSafeCells = this._rows * this._columns - this._mineCount;
 
     this._revealedSafeCells = 0; // Açılmış bos xanalarin sayı
+    this._time = new Date().getTime();
   }
 
   // Board mount edilməsi üçün metod
@@ -178,6 +179,7 @@ class Game {
       }
     }
     this._gameState = "lost";
+    this._totalPoints = 0;
     this.showLoseMessage();
   }
 
@@ -273,6 +275,28 @@ class Game {
     return this.checkWinCondition();
   }
 
+  calculateTotalPoints = () => {
+    const timeElapsed = Math.floor((new Date().getTime() - this._time) / 1000);
+    const totalPoints =
+      this._mineCount * 100 -
+      timeElapsed * 0.5 * (this._revealedSafeCells / this._totalSafeCells);
+
+    return totalPoints;
+  };
+
+  setHighScore() {
+    const highScore = localStorage.getItem("highScore");
+    if (!highScore) {
+      localStorage.setItem("highScore", this.calculateTotalPoints());
+      return true;
+    } else {
+      if (this.calculateTotalPoints() > highScore) {
+        localStorage.setItem("highScore", this.calculateTotalPoints());
+      } else {
+        return false;
+      }
+    }
+  }
   showWinMessage() {
     // Win message da problem yarandir, nedense developer toolsda overlay de yaradilan 2 buttonun her birinde 2 event listener olurdu ve buna gorede click edile bilmirdi her ikisine, bu hissede AI dan komek aldim hell ucun
     // Əvvəlcə köhnə overlay-i təmizləyək (əgər varsa)
@@ -289,12 +313,32 @@ class Game {
 
     const winMessage = document.createElement("div");
     winMessage.id = "winMessage";
-    winMessage.innerHTML = `
+
+    if (this.setHighScore()) {
+      winMessage.innerHTML = `
+      <h2>Təbriklər!</h2>
+      <h3>Xal: ${this.calculateTotalPoints()}</h3>
+      <p>Yeni rekord!</p>
+      <p>Bütün minaları tapdınız!</p>
+      <p>Oyun müddəti: ${Math.floor(
+        (new Date().getTime() - this._time) / 1000
+      )} saniyə</p>
+      <button id="playAgainBtn">Yenidən başla</button>
+      <button id="showBoard">Oyun taxtasını göstər</button>
+    `;
+    } else {
+      winMessage.innerHTML = `
     <h2>Təbriklər!</h2>
+    <h3>Xal: ${this.calculateTotalPoints()}</h3>
     <p>Bütün minaları tapdınız!</p>
+    <p>Oyun müddəti: ${Math.floor(
+      (new Date().getTime() - this._time) / 1000
+    )} saniyə</p>
     <button id="playAgainBtn">Yenidən başla</button>
     <button id="showBoard">Oyun taxtasını göstər</button>
   `;
+    }
+
     Object.assign(winMessage.style, messageStyle);
 
     overlay.appendChild(winMessage);
