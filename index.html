@@ -74,10 +74,26 @@
             </div>
 
             <div class="instruction-section">
-                <h3 class="instruction-subtitle">Məsləhətlər</h3>
-                <ul>
-                    <li>Başlanğıc zamanı künclərə click edin</li>
-                    <li>Əmin deyilsinizsə, potensial minaları izləmək üçün onları bayraqla işarələyin</li>
+                <div style="display: flex;  align-items: center; gap: 5px; cursor: pointer;"
+                    id="tutorialDropdownOpenText"">
+                    <h3 class=" instruction-subtitle" id="tutorialDropdownOpenText">Məsləhətlər</h3>
+                    <img src="./images/arrowDown.svg" alt="arrow" id="icon" />
+                </div>
+
+
+                <ul id="tutorialDropdown">
+                    <li style="display: flex;
+                    flex-direction: column;">
+                        Əgər xananın sayı qədər mina tapılıbsa, bütün qonşular boşdur (bayrağın sağındaki 1 xanasına
+                        baxın)
+                        <img src="./images/mine1.jpg" />
+                    </li>
+                    <li style="display: flex;
+                    flex-direction: column;">
+                        Xananın təmas etdiyi xanaların sayı xanadaki rəqəmə bərabərdirsə, təmas etdiklərinin hamısı
+                        minadır
+                        <img src="./images/mine2.jpg" />
+                    </li>
                 </ul>
             </div>
         </div>

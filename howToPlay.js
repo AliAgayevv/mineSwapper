@@ -16,3 +16,20 @@ window.onclick = function (event) {
     modal.style.display = "none";
   }
 };
+
+const tutorialDropdownOpenText = document.getElementById(
+  "tutorialDropdownOpenText"
+);
+const tutorialDropdown = document.getElementById("tutorialDropdown");
+const icon = document.getElementById("icon");
+
+tutorialDropdownOpenText.addEventListener("click", function (event) {
+  event.stopPropagation();
+  tutorialDropdown.style.display === "block"
+    ? (tutorialDropdown.style.display = "none")
+    : (tutorialDropdown.style.display = "block");
+  icon.style.transform =
+    tutorialDropdown.style.display === "block"
+      ? "rotate(180deg)"
+      : "rotate(0deg)";
+});

@@ -240,6 +240,14 @@ li {
   margin-bottom: 8px;
 }
 
+#tutorialDropdown {
+  display: none;
+}
+#tutorialDropdownOpenText > img {
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+}
 @media (max-width: 768px) {
   .game-header {
     padding: 15px;
