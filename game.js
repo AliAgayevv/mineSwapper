@@ -80,6 +80,16 @@ class Game {
       return;
     }
 
+    let dynamicSquareSize = SQUARE_SIZE;
+    if (window.innerWidth < 768) {
+      const availableWidth = window.innerWidth - 40;
+      const maxSquareSize = Math.floor(availableWidth / this._columns);
+      dynamicSquareSize = Math.min(SQUARE_SIZE, maxSquareSize);
+
+      if (dynamicSquareSize < 20) {
+        dynamicSquareSize = 20;
+      }
+    }
     // Boardu sıfırlayırıq
     board.innerHTML = "";
     // Boardun ölçülərini təyin edirik. Grid template colums və rows sayına əsasən edirik ki hər hansı bir sütün və sətir sayı ilə boardu render edə bilək
@@ -87,8 +97,8 @@ class Game {
     board.style.gridTemplateRows = `repeat(${this._rows}, 1fr)`;
     // eni - sətir sayın * hər bir xananın ölçüsü (px)
     // hündürlüyü - sütünların sayı * hər bir xananın ölçüsü (px)
-    board.style.width = `${this._columns * SQUARE_SIZE}px`;
-    board.style.height = `${this._rows * SQUARE_SIZE}px`;
+    board.style.width = `${this._columns * dynamicSquareSize}px`;
+    board.style.height = `${this._rows * dynamicSquareSize}px`;
     board.style.display = "grid";
     board.style.border = "1px solid black";
     board.style.gap = "1px";
@@ -450,10 +460,19 @@ class Square {
 
   // DOMda xananı yaratmaq üçün metod
   createSquareElement(game) {
+    let dynamicSquareSize = SQUARE_SIZE;
+    if (window.innerWidth < 768) {
+      const availableWidth = window.innerWidth - 40;
+      const maxSquareSize = Math.floor(availableWidth / game._columns);
+      dynamicSquareSize = Math.min(SQUARE_SIZE, maxSquareSize);
+      if (dynamicSquareSize < 20) {
+        dynamicSquareSize = 20;
+      }
+    }
     // game instanceini alırıq ki, xananın ətrafındakı minaları hesablaya bilək
     const squareElement = document.createElement("div");
-    squareElement.style.width = `${SQUARE_SIZE - 3}px`;
-    squareElement.style.height = `${SQUARE_SIZE - 3}px`;
+    squareElement.style.width = `${dynamicSquareSize - 3}px`;
+    squareElement.style.height = `${dynamicSquareSize - 3}px`;
     squareElement.style.border = "1px solid #ccc";
 
     // Hər bir xananı yaradanda ona x və y koordinatlarını data-x və data-y atributları ilə veririk ki, daha sonra həmin xananı tapmaq üçün istifadə edə bilək
